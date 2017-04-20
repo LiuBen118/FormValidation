@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<form id="myForm">
+		<p>
+			<label>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名:</label>
+			<input type="text" name="user" placeholder="刘奔">
+		</p>
+		<p>
+			<label>密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码:</label>
+			<input type="text" name="pwd">
+		</p>
+		<p>
+			<label>确认密码:</label>
+			<input type="text" name="pwdd">
+		</p>
+	</form>
+	<button id="btn">按钮</button>
+	<script src="main.js"></script>
+	<script>
+		var btn = document.querySelector("#btn");
+
+		var ooo = new Mvalidate('myForm');
+			ooo.add({
+		        name:'user',
+		        rules:['required',/^[\u2E80-\u9FFF]+$/,'maxLength(4)'],
+		        message:['姓名必须填写','姓名必须是中文','姓名最长不能超过4位'],
+		        callback:function(el, errorEl){
+		        	// console.log( errorEl )
+		        }
+		    }).add({
+		    	name:'pwd',
+		        rules:['required','maxLength(10)'],
+		        message:['密码必须填写','密码最长不能超过10位'],
+		        callback:function(el, errorEl){
+		        	// console.log( errorEl )
+		        }
+		    }).add({
+		    	name:'pwdd',
+		       	sameTo:'pwd',
+		        message:["密码不一致"]
+		    })
+
+				    
+		  btn.onclick = function(){
+		  	if( ooo.valid() ){
+		  		alert( 'ok' )
+		  	}
+		  }
+	</script>
+</body>
+</html>
